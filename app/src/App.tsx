@@ -1,34 +1,45 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { socket } from "./SocketProvider";
 
-type TAppProps = {};
-
-const App: React.FC<TAppProps> = ({}) => {
+const App = () => {
   const [mess, setMess] = useState<string>("");
-  socket.on("connect", () => {
-    console.log("connected!");
-  });
-  const submitHandler = (event: any) => {
-    event.preventDefault();
-    socket.emit("message", mess);
-    setMess("");
-  };
-  socket.on("res", (res) => {
-    console.log("res; ", res);
-  });
   return (
-    <div>
-      <form onSubmit={submitHandler}>
-        <input
+    <div
+      style={{
+        width: "100%",
+        height: "90vh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <ul
+        style={{
+          width: "100%",
+          height: "100%",
+          listStyle: "none",
+          fontSize: "22px",
+        }}
+      >
+        {[0, 1, 2].map((item: any, index: number) => (
+          <li
+            style={{ background: `${index % 2 !== 0 ? "gray" : "white"}` }}
+            key={index}
+          >
+            {item ?? "fuck"}
+          </li>
+        ))}
+      </ul>
+      <form style={{ width: "100%", height: "20vh" }}>
+        <textarea
+          style={{ width: "100%", height: "100%" }}
           onChange={(e) => setMess(e.target.value)}
-          type="text"
           value={mess}
           placeholder="Enter message"
         />
+        <button type="submit">Send</button>
       </form>
-      <ul>
-        <li></li>
-      </ul>
     </div>
   );
 };
