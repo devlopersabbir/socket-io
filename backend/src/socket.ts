@@ -1,6 +1,6 @@
 import { Server as HttpServer } from "http";
 import { Server, Socket } from "socket.io";
-import config from "../config";
+import config from "./configs/config";
 
 class SocketServer {
   private io: Server;

@@ -1,6 +1,6 @@
 import express from "express";
 import { createServer } from "http";
-import config from "../config";
+import config from "./configs/config";
 import SocketServer from "./socket";
 
 const app = express();
