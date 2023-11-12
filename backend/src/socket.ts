@@ -1,6 +1,7 @@
 import { Server as HttpServer } from "http";
 import { Server, Socket } from "socket.io";
 import config from "./configs/config";
+import { allowedOrigin } from "./configs/allowedOrigin";
 
 class SocketServer {
   private io: Server;
@@ -8,7 +9,7 @@ class SocketServer {
   constructor(server: HttpServer) {
     this.io = new Server(server, {
       cors: {
-        origin: config.NODE_ENV === "production" ? false : "*",
+        origin: config.NODE_ENV === "production" ? false : allowedOrigin,
       },
     });
     console.log("Socket connected!");
