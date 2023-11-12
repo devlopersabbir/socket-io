@@ -1,37 +1,24 @@
 import { Server as HttpServer } from "http";
-import { Socket, Server } from "socket.io";
+import { Server, Socket } from "socket.io";
+import config from "../config";
 
 class SocketServer {
-  // public static instance: SocketServer;
-  public io: Server;
+  private io: Server;
   socket: Socket | null;
-
   constructor(server: HttpServer) {
-    // SocketServer.instance = this;
     this.io = new Server(server, {
       cors: {
-        origin: "*",
-        credentials: true,
+        origin: config.NODE_ENV === "production" ? false : "*",
       },
     });
-    this.socket = null;
-    console.log("Socket started...");
-    this.io.on("connection", this.StartListening);
+    console.log("Socket connected!");
+    this.io.on("connection", this.serverListening);
   }
-
-  StartListening = (socket: Socket) => {
-    this.socket = socket;
-    console.log(`${socket.id ?? "UN"} is connected!`);
-
-    // send message
-    socket.on("user-message", (message) => {
-      this.io.emit("message", message);
-    });
-
-    socket.on("disconnect", () => {
-      console.log(`${socket.id ?? "UN"} is disconnected!`);
+  serverListening = (socket: Socket) => {
+    socket.on("chat-message", (data) => {
+      console.log(data);
+      this.io.emit("message", `${socket.id.substring(0, 5)} : ${data}`);
     });
   };
 }
-
 export default SocketServer;
