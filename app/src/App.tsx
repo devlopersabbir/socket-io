@@ -1,4 +1,6 @@
 import React from "react";
+import { ThemeMode } from "./themes";
+import { ProfileImage } from "./components";
 
 const App: React.FC = () => {
   return (
@@ -10,7 +12,9 @@ const App: React.FC = () => {
             <div className="logo w-10 h-10 rounded-md bg-blue-600"></div>
             <div className="footer flex flex-col">
               {/* mode */}
+              <ThemeMode />
               {/* profile photo */}
+              <ProfileImage />
             </div>
           </div>
           {/* sidebar */}
