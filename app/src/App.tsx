@@ -10,6 +10,8 @@ const App: React.FC = () => {
           {/* side menu */}
           <div className="flex flex-col gap-5 justify-center items-center text-center w-24 rounded-bl-3xl rounded-tl-3xl bg-zinc-200 p-5">
             <div className="logo w-10 h-10 rounded-md bg-blue-600"></div>
+            {/*  main menu */}
+            <div className="main_menu">Main menu</div>
             <div className="footer flex flex-col">
               {/* mode */}
               <ThemeMode />
